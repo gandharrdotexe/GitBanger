@@ -1,0 +1,77 @@
+{
+  "name": "gitbanger",
+  "displayName": "GitBanger",
+  "description": "Play hip-hop producer tags on developer actions like git pushes, builds, and terminal commands.",
+  "version": "0.0.1",
+  "private": true,
+  "publisher": "codex",
+  "engines": {
+    "vscode": "^1.88.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onCommand:gitbanger.toggleMute"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "gitbanger.toggleMute",
+        "title": "GitBanger: Toggle Mute"
+      }
+    ],
+    "configuration": {
+      "title": "GitBanger",
+      "properties": {
+        "producerTags.enabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable or disable GitBanger entirely."
+        },
+        "producerTags.volume": {
+          "type": "number",
+          "default": 1,
+          "minimum": 0,
+          "maximum": 1,
+          "description": "Playback volume from 0.0 (silent) to 1.0 (full)."
+        },
+        "producerTags.cooldownSeconds": {
+          "type": "number",
+          "default": 10,
+          "minimum": 0,
+          "description": "Minimum seconds between tag plays."
+        },
+        "producerTags.triggerOn": {
+          "type": "array",
+          "default": [
+            "gitPush",
+            "gitCommit",
+            "gitMerge",
+            "buildSuccess",
+            "buildFail",
+            "install",
+            "taskEnd",
+            "terminalFallback"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Which events trigger a tag."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "tsc -p .",
+    "watch": "tsc -p . --watch",
+    "lint": "tsc -p . --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.15.0",
+    "@types/vscode": "^1.88.0",
+    "typescript": "^5.8.3"
+  }
+}
